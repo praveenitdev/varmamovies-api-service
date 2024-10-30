@@ -21,7 +21,7 @@ const getMovieById = (req, res) => {
 const createMovie = (req, res) => {
     const { title, genre, director, release_year } = req.body;
     db.query(
-        'INSERT INTO movies (title, genre, director, release_year) VALUES (?, ?, ?, ?)',
+        'INSERT INTO movies (url, title, genre, director, release_year) VALUES (?, ?, ?, ?, ?)',
         [title, genre, director, release_year],
         (err, result) => {
             if (err) return res.status(500).send(err);
@@ -33,13 +33,13 @@ const createMovie = (req, res) => {
 // Update a movie
 const updateMovie = (req, res) => {
     const { id } = req.params;
-    const { title, genre, director, release_year } = req.body;
+    const { url, title, genre, director, release_year } = req.body;
     db.query(
-        'UPDATE movies SET title = ?, genre = ?, director = ?, release_year = ? WHERE id = ?',
-        [title, genre, director, release_year, id],
+        'UPDATE movies SET url = ?, title = ?, genre = ?, director = ?, release_year = ? WHERE id = ?',
+        [url, title, genre, director, release_year, id],
         (err, result) => {
             if (err) return res.status(500).send(err);
-            res.json({ id, title, genre, director, release_year });
+            res.json({ url, id, title, genre, director, release_year });
         }
     );
 };
